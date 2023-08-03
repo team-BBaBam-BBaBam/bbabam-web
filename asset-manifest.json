@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/bbabam-web/static/css/main.b3a5e6b6.css",
+    "main.js": "/bbabam-web/static/js/main.a8a1aded.js",
+    "static/js/787.e6a8a55f.chunk.js": "/bbabam-web/static/js/787.e6a8a55f.chunk.js",
+    "static/media/background.png": "/bbabam-web/static/media/background.31ed4437ef9257817f7a.png",
+    "static/media/rough_paper.svg": "/bbabam-web/static/media/rough_paper.86bdefe8d123c6e78d5ab4b0090107d2.svg",
+    "static/media/search.svg": "/bbabam-web/static/media/search.0e8271e34aeb6e87362a18d346f00b9c.svg",
+    "index.html": "/bbabam-web/index.html",
+    "main.b3a5e6b6.css.map": "/bbabam-web/static/css/main.b3a5e6b6.css.map",
+    "main.a8a1aded.js.map": "/bbabam-web/static/js/main.a8a1aded.js.map",
+    "787.e6a8a55f.chunk.js.map": "/bbabam-web/static/js/787.e6a8a55f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3a5e6b6.css",
+    "static/js/main.a8a1aded.js"
+  ]
+}
