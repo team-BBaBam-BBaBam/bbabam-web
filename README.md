@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Try this project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Go To Site](https://team-bbabam-bbabam.github.io/bbabam-web/)
 
 ## Available Scripts
 

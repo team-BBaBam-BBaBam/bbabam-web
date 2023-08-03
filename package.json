@@ -1,7 +1,7 @@
 {
   "name": "bbabam",
   "version": "0.1.0",
-  "homepage": "https://team-BBaBam-BBaBam.github.com/bbabam-web",
+  "homepage": "https://team-bbabam-bbabam.github.io/bbabam-web/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
