@@ -1,9 +1,7 @@
+import CrawlingView from './view/crawling_view';
+
 function CrawlingScreen() {
-    return (
-        <div>
-            <h1>크롤링</h1>
-        </div>
-    );
+    return <CrawlingView />;
 }
 
 export default CrawlingScreen;

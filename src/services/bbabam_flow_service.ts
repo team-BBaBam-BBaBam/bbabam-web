@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-underscore-dangle */
 import { BBabamFlowServiceListener, POIData } from './bbabam_flow_listener';
 
@@ -99,5 +100,19 @@ class BBabamFlowService extends BBabamFlowServiceListener {
         }
     }
 }
+
+class FakeBBabamFlowService extends BBabamFlowService {
+    startFlow(): void {
+        setTimeout(() => {
+            this.onStartCrawling([
+                '유니스트란',
+                '유니스트 위치',
+                '유니스트 연혁',
+            ]);
+        }, 1000);
+    }
+}
+
+export { FakeBBabamFlowService };
 
 export default BBabamFlowService;
