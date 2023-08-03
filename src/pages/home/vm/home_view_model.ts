@@ -1,33 +1,33 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from 'mobx';
 
 class HomeViewModel {
     isWhatIsBBaBamVisible = true;
-    
+
     isSearchActive = false;
 
-    searchInput = "";
+    searchInput = '';
 
-    constructor(){
-        makeAutoObservable(this); 
+    constructor() {
+        makeAutoObservable(this);
     }
 
-    showWhatIsBBaBam(){
+    showWhatIsBBaBam() {
         this.isWhatIsBBaBamVisible = true;
     }
 
-    hideWhatIsBBaBam(){
+    hideWhatIsBBaBam() {
         this.isWhatIsBBaBamVisible = false;
     }
 
-    activateSearch(){
+    activateSearch() {
         this.isSearchActive = true;
     }
 
-    deactivateSearch(){
+    deactivateSearch() {
         this.isSearchActive = false;
     }
 
-    setSearchInput(input: string){
+    setSearchInput(input: string) {
         this.searchInput = input;
     }
 }
