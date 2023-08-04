@@ -1,9 +1,7 @@
+import GeneratingView from './view/GeneratingView';
+
 function GeneratingScreen() {
-    return (
-        <div>
-            <h1>Generating</h1>
-        </div>
-    );
+    return <GeneratingView />;
 }
 
 export default GeneratingScreen;

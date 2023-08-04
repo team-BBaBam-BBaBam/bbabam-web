@@ -1,4 +1,4 @@
-import CrawlingView from './view/crawling_view';
+import CrawlingView from './view/CrawlingView';
 
 function CrawlingScreen() {
     return <CrawlingView />;

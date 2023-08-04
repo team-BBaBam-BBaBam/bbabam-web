@@ -1,17 +1,16 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
+import { animated, useTransition } from '@react-spring/web';
 import { observer } from 'mobx-react-lite';
-
-import { animated, useSpring, useTransition } from '@react-spring/web';
 import { useBBabam } from '../../../hooks/bbabam_provier';
-import PlaceImageCard from '../../../components/PlaceImageCard';
 import useClientWidthHeight from '../../../hooks/use_client_width_height';
+import PlaceImageCard from '../../../components/PlaceImageCard';
 
-const ImageCardVerticalSliderContainer = styled.div`
+const ImageCardGallaryContainer = styled.div`
+    width: 100%;
+    max-width: 1080px;
     height: 100%;
-    width: 335px;
     position: relative;
-    top: 0;
 `;
 
 interface ImageCardItem {
@@ -21,18 +20,18 @@ interface ImageCardItem {
     index: number;
 }
 
-function ImageCardVerticalSlider() {
+function ImageCardGallary() {
     const counterRef = useRef(0);
 
     const bbabamStore = useBBabam();
     const containerRef = useRef<HTMLDivElement>(null);
     const { height } = useClientWidthHeight(containerRef);
 
-    const speed = 4000;
-
     const generateNewImageCardData = useCallback(() => {
         const imageCardData = bbabamStore.placeImageCardData;
-        const numImageCards = Math.ceil(height / (266 + 33)) + 1;
+        const numImageCards =
+            Math.min(2, Math.max(1, Math.floor((height + 24) / (266 + 24)))) *
+            3;
 
         const result = [];
         while (numImageCards - result.length > imageCardData.length) {
@@ -62,61 +61,17 @@ function ImageCardVerticalSlider() {
     const [newImageCardData, setNewImageCardData] = useState<ImageCardItem[]>(
         generateNewImageCardData
     );
-
     const newImageCardDataRef = useRef(newImageCardData);
     useEffect(() => {
         newImageCardDataRef.current = newImageCardData;
     }, [newImageCardData]);
-
-    const [slideAnimations, setSlideAnimations] = useSpring(() => ({
-        immediate: true,
-        from: { translateY: -266 - 33 },
-        to: { translateY: 0 },
-        config: { duration: speed },
-    }));
-
-    useEffect(() => {
-        setNewImageCardData(generateNewImageCardData());
-        setSlideAnimations({
-            from: { translateY: -266 - 33 },
-            to: { translateY: 0 },
-        });
-    }, [generateNewImageCardData, setSlideAnimations]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setNewImageCardData([
-                {
-                    ...newImageCardDataRef.current[newImageCardData.length - 1],
-                    index: 0,
-                },
-                ...newImageCardDataRef.current
-                    .slice(0, newImageCardData.length - 1)
-                    .map((item) => ({
-                        ...item,
-                        index: item.index + 1,
-                    })),
-            ]);
-
-            setSlideAnimations({
-                from: { translateY: -266 - 33 },
-                to: { translateY: 0 },
-            });
-        }, speed);
-        return () => clearInterval(interval);
-    }, [
-        generateNewImageCardData,
-        newImageCardDataRef,
-        newImageCardData.length,
-        setSlideAnimations,
-    ]);
 
     useEffect(() => {
         const interval = setInterval(() => {
             // newImageCardData 중 랜덤 한개를 다른 이미지로 바꿈
             const newImageCardDataCopy = [...newImageCardDataRef.current];
             const randomIndex = Math.floor(
-                Math.random() * (newImageCardDataCopy.length - 1)
+                Math.random() * newImageCardDataCopy.length
             );
             const randomImageCardData =
                 bbabamStore.placeImageCardData[
@@ -132,15 +87,11 @@ function ImageCardVerticalSlider() {
                 id,
                 index: randomIndex,
             };
+
             setNewImageCardData(newImageCardDataCopy);
         }, 4200);
         return () => clearInterval(interval);
-    }, [
-        bbabamStore.placeImageCardData,
-        generateNewImageCardData,
-        newImageCardDataRef,
-        setSlideAnimations,
-    ]);
+    }, [bbabamStore.placeImageCardData]);
 
     const cardVisibleTransition = useTransition(newImageCardData, {
         key: (item: ImageCardItem) => item.id,
@@ -149,30 +100,27 @@ function ImageCardVerticalSlider() {
         leave: { opacity: 0, scale: 0 },
     });
 
+    useEffect(() => {
+        setNewImageCardData(generateNewImageCardData());
+    }, [generateNewImageCardData]);
+
     return (
-        <ImageCardVerticalSliderContainer ref={containerRef}>
-            <animated.div
-                style={{
-                    ...slideAnimations,
-                    position: 'absolute',
-                    top: 0,
-                }}
-            >
-                {cardVisibleTransition((style, item) => (
-                    <animated.div
-                        style={{
-                            ...style,
-                            position: 'absolute',
-                            top: `${item.index * (266 + 33)}px`,
-                        }}
-                        key={item.id}
-                    >
-                        <PlaceImageCard imgUrl={item.url} title={item.text} />
-                    </animated.div>
-                ))}
-            </animated.div>
-        </ImageCardVerticalSliderContainer>
+        <ImageCardGallaryContainer ref={containerRef}>
+            {cardVisibleTransition((style, item) => (
+                <animated.div
+                    style={{
+                        ...style,
+                        position: 'absolute',
+                        left: (item.index % 3) * (335 + 36),
+                        top: Math.floor(item.index / 3) * (266 + 24),
+                    }}
+                    key={item.id}
+                >
+                    <PlaceImageCard imgUrl={item.url} title={item.text} />
+                </animated.div>
+            ))}
+        </ImageCardGallaryContainer>
     );
 }
 
-export default observer(ImageCardVerticalSlider);
+export default observer(ImageCardGallary);

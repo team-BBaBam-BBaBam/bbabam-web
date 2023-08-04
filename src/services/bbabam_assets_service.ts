@@ -2,9 +2,16 @@
 import axios from 'axios';
 
 export interface PlaceImageCardData {
-    url: string;
-    query: string;
-    text: string;
+    galContentId: string;
+    galContentTypeId: string;
+    galTitle: string;
+    galWebImageUrl: string;
+    galCreatedtime: string;
+    galModifiedtime: string;
+    galPhotographyMonth: string;
+    galPhotographyLocation: string;
+    galPhotographer: string;
+    galSearchKeyword: string;
 }
 
 class BBabamAssetsService {
@@ -23,54 +30,124 @@ export class FakeBBabamAssetsService extends BBabamAssetsService {
     async loadImages(): Promise<PlaceImageCardData[]> {
         return [
             {
-                url: 'https://picsum.photos/300/200?random=1',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place1',
+                galContentId: '1',
+                galContentTypeId: '1',
+                galTitle: 'very nice place1',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=1',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=2',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place2',
+                galContentId: '2',
+                galContentTypeId: '2',
+                galTitle: 'very nice place2',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=2',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=3',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place3',
+                galContentId: '3',
+                galContentTypeId: '3',
+                galTitle: 'very nice place3',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=3',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=4',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place4',
+                galContentId: '4',
+                galContentTypeId: '4',
+                galTitle: 'very nice place4',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=4',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=5',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place5',
+                galContentId: '5',
+                galContentTypeId: '5',
+                galTitle: 'very nice place5',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=5',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=6',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place6',
+                galContentId: '6',
+                galContentTypeId: '6',
+                galTitle: 'very nice place6',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=6',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=7',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place7',
+                galContentId: '7',
+                galContentTypeId: '7',
+                galTitle: 'very nice place7',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=7',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=8',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place8',
+                galContentId: '8',
+                galContentTypeId: '8',
+                galTitle: 'very nice place8',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=8',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=9',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place9',
+                galContentId: '9',
+                galContentTypeId: '9',
+                galTitle: 'very nice place9',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=9',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
             {
-                url: 'https://picsum.photos/300/200?random=10',
-                query: 'I want to know about this very nice place',
-                text: 'very nice place10',
+                galContentId: '10',
+                galContentTypeId: '10',
+                galTitle: 'very nice place10',
+                galWebImageUrl: 'https://picsum.photos/300/200?random=10',
+                galCreatedtime: '2021-01-01',
+                galModifiedtime: '2021-01-01',
+                galPhotographyMonth: '2021-01-01',
+                galPhotographyLocation: '',
+                galPhotographer: '',
+                galSearchKeyword: '',
             },
         ];
     }

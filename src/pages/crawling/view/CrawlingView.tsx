@@ -15,6 +15,8 @@ const CrawlingContainer = styled.div`
 
     display: flex;
     flex-direction: row;
+
+    gap: 20px;
 `;
 
 const BackgroundContainer = styled.div`
@@ -27,8 +29,7 @@ const BackgroundContainer = styled.div`
 
 const CrawlingStatusBoxContainer = styled.div`
     flex: 2;
-    flexp-shrink: 0;
-
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,11 +38,10 @@ const CrawlingStatusBoxContainer = styled.div`
 
 const ImageCardSliderContainer = styled.div`
     flex: 1;
-    flexp-shrink: 0;
-
+    flex-shrink: 0;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: start;
     align-items: flex-start;
 `;
 

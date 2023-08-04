@@ -109,6 +109,9 @@ class FakeBBabamFlowService extends BBabamFlowService {
                 '유니스트 위치',
                 '유니스트 연혁',
             ]);
+            setTimeout(() => {
+                this.onFinishCrawling('유니스트란');
+            }, 16000);
         }, 1000);
     }
 }

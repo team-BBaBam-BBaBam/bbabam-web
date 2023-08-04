@@ -7,8 +7,8 @@ const useClientWidthHeight = (ref: RefObject<HTMLElement>) => {
     useEffect(() => {
         const updateSize = () => {
             if (ref.current) {
-                setWidth(ref.current.clientWidth);
-                setHeight(ref.current.clientHeight);
+                setWidth(ref.current.getBoundingClientRect().width);
+                setHeight(ref.current.getBoundingClientRect().height);
             }
         };
 

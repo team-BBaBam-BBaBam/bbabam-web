@@ -1,5 +1,7 @@
 import { styled } from 'styled-components';
+import { animated, useTransition } from '@react-spring/web';
 
+import { useEffect, useState } from 'react';
 import RoughPaperBox from '../../../components/RoughPaperBox';
 import { useBBabamFlow } from '../../../hooks/bbabam_flow_provider';
 import Spinner from '../../../components/Spinner';
@@ -121,6 +123,32 @@ const KeywordItem = styled.div`
 function CrawlingStatusBox() {
     const bbabamFlowStore = useBBabamFlow();
 
+    const [keywords, setKeywords] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (bbabamFlowStore.searchKeywords.length === 0) return () => {};
+
+        let count = 0;
+        setKeywords(bbabamFlowStore.searchKeywords.slice(0, count + 1));
+        count += 1;
+
+        const timer = setInterval(() => {
+            setKeywords(bbabamFlowStore.searchKeywords.slice(0, count + 1));
+            count += 1;
+            if (count === bbabamFlowStore.searchKeywords.length) {
+                clearInterval(timer);
+            }
+        }, 8000);
+
+        return () => clearInterval(timer);
+    }, [bbabamFlowStore.searchKeywords, setKeywords]);
+
+    const keywordItemTransition = useTransition(keywords, {
+        from: { opacity: 0, transform: 'translateY(10px)' },
+        enter: { opacity: 1, transform: 'translateY(0px)' },
+        leave: { opacity: 0, transform: 'translateY(10px)' },
+    });
+
     return (
         <RoughPaperBox>
             <CenteredContainer>
@@ -134,15 +162,19 @@ function CrawlingStatusBox() {
                         <img src={LogoImage} alt="logo" />
                     </CrawlingStatusBoxDescription>
                     <KeywordList>
-                        {bbabamFlowStore.searchKeywords.map(
-                            (keyword, index) => (
+                        {keywordItemTransition((style, keyword) => (
+                            <animated.div style={style}>
                                 <KeywordItem key={keyword}>
-                                    <div className="num">{index + 1}</div>
+                                    <div className="num">
+                                        {bbabamFlowStore.searchKeywords.indexOf(
+                                            keyword
+                                        ) + 1}
+                                    </div>
                                     <div className="keyword">{keyword}</div>
                                     <div className="text">searching...</div>
                                 </KeywordItem>
-                            )
-                        )}
+                            </animated.div>
+                        ))}
                     </KeywordList>
                 </CrawlingStatusBoxContainer>
             </CenteredContainer>
