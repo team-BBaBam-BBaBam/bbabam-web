@@ -15,7 +15,7 @@ abstract class BBabamFlowServiceListener {
     socket: Socket;
 
     constructor() {
-        this.socket = io('http://43.201.32.219:4827/search');
+        this.socket = io('https://bbabam.dshs.site/search');
 
         this.socket.on('start_crawling', (data) => {
             this.onStartCrawling(data.search_keywords);
