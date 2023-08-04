@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import AnimatedGradientBackground from '../../../components/AnimatedGradientBackground';
 import CrawlingStatusBox from '../components/CrawlingStatusBox';
+import ImageCardVerticalSlider from '../components/ImageCardVerticalSlider';
 
 const CrawlingContainer = styled.div`
     width: 100vw;
@@ -25,13 +26,23 @@ const BackgroundContainer = styled.div`
 `;
 
 const CrawlingStatusBoxContainer = styled.div`
-    flex: 4;
+    flex: 2;
     flexp-shrink: 0;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+`;
+
+const ImageCardSliderContainer = styled.div`
+    flex: 1;
+    flexp-shrink: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
 `;
 
 function CrawlingView() {
@@ -44,6 +55,10 @@ function CrawlingView() {
             <CrawlingStatusBoxContainer>
                 <CrawlingStatusBox />
             </CrawlingStatusBoxContainer>
+
+            <ImageCardSliderContainer>
+                <ImageCardVerticalSlider />
+            </ImageCardSliderContainer>
         </CrawlingContainer>
     );
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { BBabamProvider } from './hooks/bbabam_provier';
 
@@ -45,6 +45,10 @@ const AppContent = observer(({ bbabamStore }: { bbabamStore: BBaBamStore }) => {
 
 function App() {
     const [bbabamStore] = useState(() => new BBaBamStore());
+
+    useEffect(() => {
+        bbabamStore.loadImages();
+    }, [bbabamStore]);
 
     return (
         <BBabamProvider value={bbabamStore}>
