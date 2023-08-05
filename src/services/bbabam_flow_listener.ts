@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 
-interface POIData {
+export interface POIData {
     name: string;
     address: string;
     loc_X: number;
@@ -9,6 +9,11 @@ interface POIData {
     cate1: string;
     cate2: string;
     callnum: string;
+}
+
+export interface AssociatedKeyword {
+    keyword: string;
+    queries: string[];
 }
 
 abstract class BBabamFlowServiceListener {
@@ -38,6 +43,55 @@ abstract class BBabamFlowServiceListener {
         this.socket.on('path_generation', (data) => {
             this.onPathGeneration(data.path_keywords, data.path_crawled_data);
         });
+        this.socket.on('associated_ketwords', (data) => {
+            // data.associated_keywords is like this:
+            /*
+            {
+                
+                "associated_keywords": [
+                    {
+                        "Ulsan": [
+                            "What are the tourist attractions in Ulsan?",
+                            "How can I get to Ulsan from Seoul?",
+                            "What is the weather like in Ulsan?"
+                        ]
+                    },
+                ]
+            }
+            */
+
+            // convert data.associated_keywords to AssociatedKeyword[]
+            /*
+            [
+                {
+                    keyword: "Ulsan",
+                    queries: [
+                        "What are the tourist attractions in Ulsan?",
+                        "How can I get to Ulsan from Seoul?",
+                        "What is the weather like in Ulsan?"
+                    ]
+                },
+            ]
+            */
+
+            const associatedKeywords: AssociatedKeyword[] = [];
+            // Traverse the array
+            // eslint-disable-next-line no-restricted-syntax
+            for (const obj of data.associated_keywords) {
+                // Traverse each object in the array
+                // eslint-disable-next-line no-restricted-syntax
+                for (const [key, value] of Object.entries(obj)) {
+                    // Push a new object to the associatedKeywords array
+                    associatedKeywords.push({
+                        keyword: key,
+                        queries: value as string[],
+                    });
+                }
+            }
+
+            // write code here
+            this.onAssociatedKeywordsGeneration(associatedKeywords);
+        });
     }
 
     startFlow(message: string) {
@@ -56,6 +110,9 @@ abstract class BBabamFlowServiceListener {
         pathKeywords: string[],
         pathCrawledData: POIData[]
     ): void;
+    abstract onAssociatedKeywordsGeneration(
+        associatedKeywords: AssociatedKeyword[]
+    ): void;
 }
 
-export { type POIData, BBabamFlowServiceListener };
+export { BBabamFlowServiceListener };

@@ -1,6 +1,10 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-underscore-dangle */
-import { BBabamFlowServiceListener, POIData } from './bbabam_flow_listener';
+import {
+    AssociatedKeyword,
+    BBabamFlowServiceListener,
+    POIData,
+} from './bbabam_flow_listener';
 
 class BBabamFlowService extends BBabamFlowServiceListener {
     _onStartCrawling: ((searchKeywords: string[]) => void) | null = null;
@@ -18,6 +22,10 @@ class BBabamFlowService extends BBabamFlowServiceListener {
 
     _onPathGeneration:
         | ((pathKeywords: string[], pathCrawledData: POIData[]) => void)
+        | null = null;
+
+    _onAssociatedKeywordsGeneration:
+        | ((associatedKeywords: AssociatedKeyword[]) => void)
         | null = null;
 
     registerOnStartCrawling(callback: (searchKeywords: string[]) => void) {
@@ -48,6 +56,12 @@ class BBabamFlowService extends BBabamFlowServiceListener {
         callback: (pathKeywords: string[], pathCrawledData: POIData[]) => void
     ) {
         this._onPathGeneration = callback;
+    }
+
+    registerOnAssociatedKeywordsGeneration(
+        callback: (associatedKeywords: AssociatedKeyword[]) => void
+    ) {
+        this._onAssociatedKeywordsGeneration = callback;
     }
 
     onStartCrawling(searchKeywords: string[]) {
@@ -99,6 +113,14 @@ class BBabamFlowService extends BBabamFlowServiceListener {
             this._onPathGeneration(pathKeywords, pathCrawledData);
         }
     }
+
+    onAssociatedKeywordsGeneration(associatedKeywords: AssociatedKeyword[]) {
+        console.log('associated keywords generation');
+        console.log(associatedKeywords);
+        if (this._onAssociatedKeywordsGeneration) {
+            this._onAssociatedKeywordsGeneration(associatedKeywords);
+        }
+    }
 }
 
 class FakeBBabamFlowService extends BBabamFlowService {
@@ -116,8 +138,39 @@ class FakeBBabamFlowService extends BBabamFlowService {
                         ['https://www.unist.ac.kr/'],
                         'This is UNIST'
                     );
-                }, 20000);
-            }, 16000);
+                    setTimeout(() => {
+                        this.onAssociatedKeywordsGeneration([
+                            {
+                                keyword: 'UNIST',
+                                queries: [
+                                    'What courses does UNIST offer?',
+                                    'What is the tuition fee at UNIST?',
+                                    'What is the student population of UNIST?',
+                                    'What accolades has UNIST received?',
+                                    'Where is UNIST located?',
+                                ],
+                            },
+                            {
+                                keyword: 'Ulsan',
+                                queries: [
+                                    'What are the tourist attractions in Ulsan?',
+                                    'How to get to Ulsan from Seoul?',
+                                    'What is the best time to visit Ulsan?',
+                                ],
+                            },
+                            {
+                                keyword:
+                                    'Times Higher Education World University Rankings',
+                                queries: [
+                                    'What is the ranking of UNIST in the Times Higher Education World University Rankings?',
+                                    'What other South Korean universities are ranked in the Times Higher Education World University Rankings?',
+                                    'How are the Times Higher Education World University Rankings calculated?',
+                                ],
+                            },
+                        ]);
+                    }, 1000);
+                }, 1000);
+            }, 1000);
         }, 1000);
     }
 }

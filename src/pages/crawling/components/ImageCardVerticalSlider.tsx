@@ -68,7 +68,7 @@ function ImageCardVerticalSlider() {
         newImageCardDataRef.current = newImageCardData;
     }, [newImageCardData]);
 
-    const [slideAnimations, setSlideAnimations] = useSpring(() => ({
+    const [slideAnimations, slideAnimationApi] = useSpring(() => ({
         immediate: true,
         from: { translateY: -266 - 33 },
         to: { translateY: 0 },
@@ -77,11 +77,11 @@ function ImageCardVerticalSlider() {
 
     useEffect(() => {
         setNewImageCardData(generateNewImageCardData());
-        setSlideAnimations({
+        slideAnimationApi.start({
             from: { translateY: -266 - 33 },
             to: { translateY: 0 },
         });
-    }, [generateNewImageCardData, setSlideAnimations]);
+    }, [generateNewImageCardData, slideAnimationApi]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -98,7 +98,7 @@ function ImageCardVerticalSlider() {
                     })),
             ]);
 
-            setSlideAnimations({
+            slideAnimationApi.start({
                 from: { translateY: -266 - 33 },
                 to: { translateY: 0 },
             });
@@ -108,7 +108,7 @@ function ImageCardVerticalSlider() {
         generateNewImageCardData,
         newImageCardDataRef,
         newImageCardData.length,
-        setSlideAnimations,
+        slideAnimationApi,
     ]);
 
     useEffect(() => {
@@ -139,7 +139,6 @@ function ImageCardVerticalSlider() {
         bbabamStore.placeImageCardData,
         generateNewImageCardData,
         newImageCardDataRef,
-        setSlideAnimations,
     ]);
 
     const cardVisibleTransition = useTransition(newImageCardData, {

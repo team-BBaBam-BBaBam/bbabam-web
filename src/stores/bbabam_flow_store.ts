@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import BBabamFlowService from '../services/bbabam_flow_service';
-import { POIData } from '../services/bbabam_flow_listener';
+import { AssociatedKeyword, POIData } from '../services/bbabam_flow_listener';
 
 export enum BBabamFlowStep {
     INIT,
@@ -30,6 +30,8 @@ class BBabamFlowStore {
 
     pathGenerated = false;
 
+    associatedKeywordsGenerated = false;
+
     poiData: POIData[] | null = null;
 
     poiKeywords: string[] = [];
@@ -37,6 +39,8 @@ class BBabamFlowStore {
     pathData: POIData[] | null = null;
 
     pathKeywords: string[] = [];
+
+    associatedKeywords: AssociatedKeyword[] = [];
 
     constructor(bbabamFlowService: BBabamFlowService) {
         this.service = bbabamFlowService;
@@ -49,6 +53,21 @@ class BBabamFlowStore {
 
     startFlow(userInput: string) {
         this.userInput = userInput;
+
+        // reset
+        this.searchKeywords = [];
+        this.errorCode = 0;
+        this.result = '';
+        this.urls = [];
+        this.poiGenerated = false;
+        this.pathGenerated = false;
+        this.associatedKeywordsGenerated = false;
+        this.poiData = null;
+        this.poiKeywords = [];
+        this.pathData = null;
+        this.pathKeywords = [];
+        this.associatedKeywords = [];
+
         this.step = BBabamFlowStep.STARTING;
         this.service.startFlow(userInput);
     }
@@ -62,6 +81,9 @@ class BBabamFlowStore {
         );
         this.service.registerOnPoiGeneration(this.onPoiGeneration.bind(this));
         this.service.registerOnPathGeneration(this.onPathGeneration.bind(this));
+        this.service.registerOnAssociatedKeywordsGeneration(
+            this.onAssociatedKeywordsGeneration.bind(this)
+        );
     }
 
     onStartCrawling(searchKeywords: string[]) {
@@ -108,6 +130,13 @@ class BBabamFlowStore {
             this.pathKeywords = pathKeywords;
             this.pathData = pathData;
             this.pathGenerated = true;
+        });
+    }
+
+    onAssociatedKeywordsGeneration(associatedKeywords: AssociatedKeyword[]) {
+        runInAction(() => {
+            this.associatedKeywords = associatedKeywords;
+            this.associatedKeywordsGenerated = true;
         });
     }
 }

@@ -1,7 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import BBabamFlowStore from './bbabam_flow_store';
-import BBabamFlowService from '../services/bbabam_flow_service';
+import BBabamFlowService, {
+    FakeBBabamFlowService,
+} from '../services/bbabam_flow_service';
 import {
     FakeBBabamAssetsService,
     PlaceImageCardData,
@@ -35,8 +37,12 @@ class BBaBamStore {
         if (this.placeImageCardData.length === 0) {
             await this.loadImages();
         }
+
+        const isFake = true;
         runInAction(() => {
-            this.bbabamFlowStore = new BBabamFlowStore(new BBabamFlowService());
+            this.bbabamFlowStore = new BBabamFlowStore(
+                isFake ? new FakeBBabamFlowService() : new BBabamFlowService()
+            );
             this.isInBBaBamFlow = true;
             this.bbabamFlowStore.startFlow(userInput);
         });
