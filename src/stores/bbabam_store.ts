@@ -38,7 +38,7 @@ class BBaBamStore {
             await this.loadImages();
         }
 
-        const isFake = true;
+        const isFake = false;
         runInAction(() => {
             this.bbabamFlowStore = new BBabamFlowStore(
                 isFake ? new FakeBBabamFlowService() : new BBabamFlowService()
