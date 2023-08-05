@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/bbabam-web/static/css/main.d0df811e.css",
-    "main.js": "/bbabam-web/static/js/main.c460cbe5.js",
+    "main.js": "/bbabam-web/static/js/main.7361dda5.js",
     "static/js/787.e6a8a55f.chunk.js": "/bbabam-web/static/js/787.e6a8a55f.chunk.js",
     "static/media/background.png": "/bbabam-web/static/media/background.31ed4437ef9257817f7a.png",
     "static/media/rough_paper_small.svg": "/bbabam-web/static/media/rough_paper_small.1a26b5e0222b5c2797e146b13b02fc12.svg",
@@ -9,11 +9,11 @@
     "static/media/search.svg": "/bbabam-web/static/media/search.0e8271e34aeb6e87362a18d346f00b9c.svg",
     "index.html": "/bbabam-web/index.html",
     "main.d0df811e.css.map": "/bbabam-web/static/css/main.d0df811e.css.map",
-    "main.c460cbe5.js.map": "/bbabam-web/static/js/main.c460cbe5.js.map",
+    "main.7361dda5.js.map": "/bbabam-web/static/js/main.7361dda5.js.map",
     "787.e6a8a55f.chunk.js.map": "/bbabam-web/static/js/787.e6a8a55f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d0df811e.css",
-    "static/js/main.c460cbe5.js"
+    "static/js/main.7361dda5.js"
   ]
 }
