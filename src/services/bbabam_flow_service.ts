@@ -111,6 +111,12 @@ class FakeBBabamFlowService extends BBabamFlowService {
             ]);
             setTimeout(() => {
                 this.onFinishCrawling('유니스트란');
+                setTimeout(() => {
+                    this.onFinishGeneration(
+                        ['https://www.unist.ac.kr/'],
+                        'This is UNIST'
+                    );
+                }, 20000);
             }, 16000);
         }, 1000);
     }

@@ -144,6 +144,7 @@ function ImageCardVerticalSlider() {
 
     const cardVisibleTransition = useTransition(newImageCardData, {
         key: (item: ImageCardItem) => item.id,
+        trail: 200,
         from: { opacity: 0, scale: 0 },
         enter: { opacity: 1, scale: 1 },
         leave: { opacity: 0, scale: 0 },
