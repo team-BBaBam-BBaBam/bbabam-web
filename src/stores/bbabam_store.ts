@@ -41,6 +41,11 @@ class BBaBamStore {
             this.bbabamFlowStore.startFlow(userInput);
         });
     }
+
+    reset() {
+        this.isInBBaBamFlow = false;
+        this.bbabamFlowStore = null;
+    }
 }
 
 export default BBaBamStore;

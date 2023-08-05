@@ -1,9 +1,7 @@
+import ErrorView from './view/ErrorView';
+
 function ErrorScreen() {
-    return (
-        <div>
-            <h1>404</h1>
-        </div>
-    );
+    return <ErrorView />;
 }
 
 export default ErrorScreen;

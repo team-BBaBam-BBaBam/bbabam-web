@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import { animated, useTransition } from '@react-spring/web';
 
 import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import RoughPaperBox from '../../../components/RoughPaperBox';
 import { useBBabamFlow } from '../../../hooks/bbabam_flow_provider';
 import Spinner from '../../../components/Spinner';
@@ -182,4 +183,4 @@ function CrawlingStatusBox() {
     );
 }
 
-export default CrawlingStatusBox;
+export default observer(CrawlingStatusBox);
