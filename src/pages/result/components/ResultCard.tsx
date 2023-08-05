@@ -40,6 +40,7 @@ const ResultCardContnet = styled.div`
     letter-spacing: 0.32px;
 
     margin-bottom: 22px;
+    white-space: pre-wrap;
 `;
 
 const ResultCardLinkList = styled.div`
