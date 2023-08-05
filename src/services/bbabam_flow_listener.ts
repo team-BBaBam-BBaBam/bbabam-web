@@ -15,10 +15,16 @@ abstract class BBabamFlowServiceListener {
     socket: Socket;
 
     constructor() {
-        this.socket = io('https://bbabam.dshs.site/search');
+        this.socket = io('https://bbabam.dshs.site/search', {
+            autoConnect: false,
+        });
+        this.socket.connect();
 
         this.socket.on('start_crawling', (data) => {
             this.onStartCrawling(data.search_keywords);
+        });
+        this.socket.on('error', () => {
+            this.onError(0);
         });
         this.socket.on('finish_crawling', (data) => {
             this.onFinishCrawling(data.search_keyword);
@@ -35,7 +41,7 @@ abstract class BBabamFlowServiceListener {
     }
 
     startFlow(message: string) {
-        this.socket.emit('start', message);
+        this.socket.emit('start', { search_text: message });
     }
 
     abstract onStartCrawling(searchKeywords: string[]): void;
