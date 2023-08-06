@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 
+import { animated, useSprings } from '@react-spring/web';
 import ContentArea from '../../../components/ContentArea';
 import SearchBar from '../components/SearchBar';
 import ResultViewModel from '../vm/result_view_model';
@@ -61,6 +62,22 @@ const SizedBox = styled.div<{
 `;
 
 function ResultView({ resultViewModel }: { resultViewModel: ResultViewModel }) {
+    const [appearAnimation] = useSprings(
+        3,
+        () => ({
+            from: {
+                opacity: 0,
+                transform: 'translateY(20px)',
+            },
+            to: {
+                opacity: 1,
+                transform: 'translateY(0px)',
+            },
+            delay: 200,
+        }),
+        []
+    );
+
     return (
         <ResultViewContainer>
             <SearchBarContainer>
@@ -70,11 +87,17 @@ function ResultView({ resultViewModel }: { resultViewModel: ResultViewModel }) {
             </SearchBarContainer>
             <ResultContentContainer>
                 <SizedBox height={16} />
-                <ResultCard />
+                <animated.div style={appearAnimation[0]}>
+                    <ResultCard />
+                </animated.div>
                 <SizedBox height={57.6} />
-                <PlaceCard />
+                <animated.div style={appearAnimation[1]}>
+                    <PlaceCard />
+                </animated.div>
                 <SizedBox height={57.6} />
-                <PathCard />
+                <animated.div style={appearAnimation[2]}>
+                    <PathCard />
+                </animated.div>
                 <SizedBox height={72} />
             </ResultContentContainer>
         </ResultViewContainer>

@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import { useRef } from 'react';
 
 import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api';
+import { animated, useSprings } from '@react-spring/web';
 import ContentArea, {
     ContentAreaPadding,
     ContentAreaWidth,
@@ -207,9 +208,9 @@ function POICard({ poiData, index }: { poiData: POIData; index: number }) {
                     />
                 </GoogleMap>
                 <POICardContentContainer>
-                    <div>📞 {poiData.callnum}</div>
-                    <div>📍 {poiData.address}</div>
-                    <div>🌐 {poiData.url}</div>
+                    {poiData.callnum && <div>📞 {poiData.callnum}</div>}
+                    {poiData.address && <div>📍 {poiData.address}</div>}
+                    {poiData.url && <div>🌐 {poiData.url}</div>}
                 </POICardContentContainer>
             </POICardConatiner>
         </POICardRankContainer>
@@ -228,6 +229,22 @@ function PlaceCard() {
         googleMapsApiKey: 'AIzaSyDtP_ERRZb4n-Z11zu-AxRH7875uNgBw4Y',
     });
 
+    const [appearAnimation] = useSprings(
+        bbabamFlowStore.poiData.length,
+        (index) => ({
+            from: {
+                opacity: 0,
+                transform: 'translateY(20px)',
+            },
+            to: {
+                opacity: 1,
+                transform: 'translateY(0px)',
+            },
+            delay: 200 + index * 100,
+        }),
+        []
+    );
+
     if (
         bbabamFlowStore.poiGenerated &&
         isLoaded &&
@@ -245,7 +262,9 @@ function PlaceCard() {
                     )}
                 >
                     {bbabamFlowStore.poiData.map((poi, index) => (
-                        <POICard poiData={poi} index={index} />
+                        <animated.div style={appearAnimation[index]}>
+                            <POICard poiData={poi} index={index} />
+                        </animated.div>
                     ))}
                 </POICardListContainer>
             </PlaceCardContainer>

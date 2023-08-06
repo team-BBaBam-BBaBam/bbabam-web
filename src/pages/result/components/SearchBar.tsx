@@ -114,6 +114,8 @@ const HorizontalDivider = styled.div`
 const SearchBarKeywordContainer = styled.div`
     width: 100%;
     padding-left: 126px;
+    padding-top: 14px;
+    padding-bottom: 14px;
     box-sizing: border-box;
 
     display: flex;
