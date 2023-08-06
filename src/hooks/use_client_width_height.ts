@@ -1,6 +1,9 @@
 import { RefObject, useEffect, useState } from 'react';
 
-const useClientWidthHeight = (ref: RefObject<HTMLElement>) => {
+const useClientWidthHeight = (
+    ref: RefObject<HTMLElement>,
+    dependencies: any[] = []
+) => {
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
 
@@ -16,7 +19,8 @@ const useClientWidthHeight = (ref: RefObject<HTMLElement>) => {
         updateSize();
 
         return () => window.removeEventListener('resize', updateSize);
-    }, [ref]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ref, ...dependencies]);
 
     return { width, height };
 };

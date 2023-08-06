@@ -10,6 +10,7 @@ import ContentArea, {
 import useClientWidthHeight from '../../../hooks/use_client_width_height';
 import { useBBabamFlow } from '../../../hooks/bbabam_flow_provider';
 import { POIData } from '../../../services/bbabam_flow_listener';
+import Spinner from '../../../components/Spinner';
 
 const PlaceCardContainer = styled.div`
     width: 100%;
@@ -138,6 +139,34 @@ const POICardContentContainer = styled.div`
     overflow-y: auto;
 `;
 
+const LoadingPlaceCardContainer = styled.div`
+    width: 100%;
+    height: 80px;
+
+    box-sizing: border-box;
+    padding: 0 39px;
+
+    border-radius: 8px;
+    border: 1px solid #e7e7e7;
+    background: #fcfcfc;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & > div:last-child {
+        flex: 1;
+        color: #000080;
+        font-family: Nunito Sans;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+
+        margin-left: 22px;
+    }
+`;
+
 function POICard({ poiData, index }: { poiData: POIData; index: number }) {
     const locX = poiData.loc_X;
     const locY = poiData.loc_Y;
@@ -179,16 +208,18 @@ function POICard({ poiData, index }: { poiData: POIData; index: number }) {
 }
 
 function PlaceCard() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { width } = useClientWidthHeight(containerRef);
-
     const bbabamFlowStore = useBBabamFlow();
+
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { width } = useClientWidthHeight(containerRef, [
+        bbabamFlowStore.poiGenerated,
+    ]);
 
     useLoadScript({
         googleMapsApiKey: 'AIzaSyDtP_ERRZb4n-Z11zu-AxRH7875uNgBw4Y',
     });
 
-    return (
+    return bbabamFlowStore.poiGenerated ? (
         <PlaceCardContainer ref={containerRef}>
             <ContentArea>
                 <TitleContainer>🗺️ PLACE INFORMATIONS</TitleContainer>
@@ -204,6 +235,13 @@ function PlaceCard() {
                 ))}
             </POICardListContainer>
         </PlaceCardContainer>
+    ) : (
+        <ContentArea>
+            <LoadingPlaceCardContainer>
+                <Spinner size={18} thickness={3} color="#000080" />
+                <div>Gernerating PLACE INFORMATIONS</div>
+            </LoadingPlaceCardContainer>
+        </ContentArea>
     );
 }
 
