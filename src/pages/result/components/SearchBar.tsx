@@ -8,6 +8,7 @@ import ResultViewModel from '../vm/result_view_model';
 const SearchBarContainer = styled.div`
     width: 100%;
     box-sizing: border-box;
+    min-width: 0;
 
     display: flex;
     flex-direction: column;
@@ -27,6 +28,7 @@ const SearchBarContainer = styled.div`
 const SearchBarInputContainer = styled.div`
     width: 100%;
     height: 64px;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;
@@ -54,6 +56,7 @@ const SearchBarInput = styled.input<{
 }>`
     z-index: 1;
     flex: 1;
+    box-sizing: border-box;
     height: 100%;
     padding: 0 23.5px;
     font-size: 18px;

@@ -13,7 +13,7 @@ function ContentArea({ children }: { children: React.ReactNode }) {
         >
             <div
                 style={{
-                    flexBasis: `${ContentAreaWidth + ContentAreaPadding * 2}px`,
+                    flexBasis: `${ContentAreaWidth}px`,
                     flexGrow: 0,
                     flexShrink: 1,
                     minWidth: '0px',

@@ -99,6 +99,8 @@ const PathCardListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 14px;
+
+    padding-bottom: 14px;
 `;
 
 const PathCardMapContainer = styled.div`

@@ -16,13 +16,16 @@ const ResultViewContainer = styled.div`
     display: flex;
     flex-direction: column;
     background: #fbfdfe;
+
+    overflow-y: auto;
 `;
 
 const SearchBarContainer = styled.div`
     width: 100%;
+    box-sizing: border-box;
     height: 94px;
 
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     z-index: 1;
@@ -39,16 +42,13 @@ const SearchBarContainer = styled.div`
 
 const ResultContentContainer = styled.div`
     width: 100%;
-    height: 100%;
     position: relative;
     box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
 
-    overflow: auto;
-
-    padding-top: 94px;
+    padding-top: 4px;
 `;
 
 const SizedBox = styled.div<{

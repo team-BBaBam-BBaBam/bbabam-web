@@ -21,6 +21,7 @@ const PlaceCardContainer = styled.div`
     box-sizing: border-box;
 
     padding: 46px 0;
+    padding-bottom: 0;
     flex-shrink: 0;
 
     border: 1px solid #e7e7e7;
@@ -51,6 +52,7 @@ const POICardListContainer = styled.div<{
     flex-direction: row;
     align-items: center;
     gap: 36px;
+    padding-bottom: 46px;
 
     overflow-x: auto;
     overflow-y: hidden;
@@ -239,7 +241,7 @@ function PlaceCard() {
                 <POICardListContainer
                     leftPadding={Math.max(
                         ContentAreaPadding,
-                        (width - ContentAreaWidth) / 2 - 30
+                        (width - ContentAreaWidth) / 2 - 10
                     )}
                 >
                     {bbabamFlowStore.poiData.map((poi, index) => (
