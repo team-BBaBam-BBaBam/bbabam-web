@@ -78,8 +78,14 @@ abstract class BBabamFlowServiceListener {
                 (path: any) => ({
                     totalDistance: path['Total distance'],
                     totalDuration: path['Total duration'],
-                    startLocation: path.Startpoint,
-                    endLocation: path.Endpoint,
+                    startLocation: {
+                        lat: parseFloat(path.Startpoint.lat),
+                        lon: parseFloat(path.Startpoint.lon),
+                    },
+                    endLocation: {
+                        lat: parseFloat(path.Endpoint.lat),
+                        lon: parseFloat(path.Endpoint.lon),
+                    },
                     steps: path.Steps.map((step: any) => ({
                         indexFrom: parseInt(
                             step.index.split('to')[0].trim(),

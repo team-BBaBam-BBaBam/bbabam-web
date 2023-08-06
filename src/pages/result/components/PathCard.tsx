@@ -44,7 +44,7 @@ const PathCardTitle = styled.div`
     font-weight: 900;
     line-height: normal;
 
-    margin-bottom: 42px;
+    margin-bottom: 28px;
 `;
 
 const LoadingPathCardContainer = styled.div`

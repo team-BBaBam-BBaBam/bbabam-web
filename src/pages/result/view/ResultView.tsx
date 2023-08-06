@@ -75,7 +75,7 @@ function ResultView({ resultViewModel }: { resultViewModel: ResultViewModel }) {
                 <PlaceCard />
                 <SizedBox height={57.6} />
                 <PathCard />
-                <SizedBox height={36} />
+                <SizedBox height={72} />
             </ResultContentContainer>
         </ResultViewContainer>
     );
