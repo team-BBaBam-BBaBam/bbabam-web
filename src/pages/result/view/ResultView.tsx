@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar';
 import ResultViewModel from '../vm/result_view_model';
 import ResultCard from '../components/ResultCard';
 import PlaceCard from '../components/PlaceCard';
+import PathCard from '../components/PathCard';
 
 const ResultViewContainer = styled.div`
     width: 100vw;
@@ -72,7 +73,9 @@ function ResultView({ resultViewModel }: { resultViewModel: ResultViewModel }) {
                 <ResultCard />
                 <SizedBox height={57.6} />
                 <PlaceCard />
-                <SizedBox height={24} />
+                <SizedBox height={57.6} />
+                <PathCard />
+                <SizedBox height={36} />
             </ResultContentContainer>
         </ResultViewContainer>
     );

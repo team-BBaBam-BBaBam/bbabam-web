@@ -4,6 +4,7 @@ import {
     AssociatedKeyword,
     BBabamFlowServiceListener,
     POIData,
+    PathData,
 } from './bbabam_flow_listener';
 
 class BBabamFlowService extends BBabamFlowServiceListener {
@@ -21,7 +22,7 @@ class BBabamFlowService extends BBabamFlowServiceListener {
         | null = null;
 
     _onPathGeneration:
-        | ((pathKeywords: string[], pathCrawledData: POIData[]) => void)
+        | ((pathKeywords: string[], pathCrawledData: PathData[]) => void)
         | null = null;
 
     _onAssociatedKeywordsGeneration:
@@ -53,7 +54,7 @@ class BBabamFlowService extends BBabamFlowServiceListener {
     }
 
     registerOnPathGeneration(
-        callback: (pathKeywords: string[], pathCrawledData: POIData[]) => void
+        callback: (pathKeywords: string[], pathCrawledData: PathData[]) => void
     ) {
         this._onPathGeneration = callback;
     }
@@ -105,7 +106,7 @@ class BBabamFlowService extends BBabamFlowServiceListener {
         }
     }
 
-    onPathGeneration(pathKeywords: string[], pathCrawledData: POIData[]) {
+    onPathGeneration(pathKeywords: string[], pathCrawledData: PathData[]) {
         console.log('path generation');
         console.log(pathKeywords);
         console.log(pathCrawledData);

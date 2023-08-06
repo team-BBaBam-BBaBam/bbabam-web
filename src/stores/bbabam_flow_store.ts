@@ -1,6 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import BBabamFlowService from '../services/bbabam_flow_service';
-import { AssociatedKeyword, POIData } from '../services/bbabam_flow_listener';
+import {
+    AssociatedKeyword,
+    POIData,
+    PathData,
+} from '../services/bbabam_flow_listener';
 
 export enum BBabamFlowStep {
     INIT,
@@ -36,7 +40,7 @@ class BBabamFlowStore {
 
     poiKeywords: string[] = [];
 
-    pathData: POIData[] = [];
+    pathData: PathData[] = [];
 
     pathKeywords: string[] = [];
 
@@ -125,7 +129,7 @@ class BBabamFlowStore {
         });
     }
 
-    onPathGeneration(pathKeywords: string[], pathData: POIData[]) {
+    onPathGeneration(pathKeywords: string[], pathData: PathData[]) {
         runInAction(() => {
             this.pathKeywords = pathKeywords;
             this.pathData = pathData;

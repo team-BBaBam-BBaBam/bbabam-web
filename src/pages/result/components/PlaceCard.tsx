@@ -12,6 +12,8 @@ import { useBBabamFlow } from '../../../hooks/bbabam_flow_provider';
 import { POIData } from '../../../services/bbabam_flow_listener';
 import Spinner from '../../../components/Spinner';
 
+import NoResultIcon from '../../../assets/svg/no_result_icon.svg';
+
 const PlaceCardContainer = styled.div`
     width: 100%;
     height: 600px;
@@ -154,6 +156,11 @@ const LoadingPlaceCardContainer = styled.div`
     flex-direction: row;
     align-items: center;
 
+    & > img {
+        width: 22px;
+        height: 22px;
+    }
+
     & > div:last-child {
         flex: 1;
         color: #000080;
@@ -215,31 +222,49 @@ function PlaceCard() {
         bbabamFlowStore.poiGenerated,
     ]);
 
-    useLoadScript({
+    const { isLoaded } = useLoadScript({
         googleMapsApiKey: 'AIzaSyDtP_ERRZb4n-Z11zu-AxRH7875uNgBw4Y',
     });
 
-    return bbabamFlowStore.poiGenerated ? (
-        <PlaceCardContainer ref={containerRef}>
+    if (
+        bbabamFlowStore.poiGenerated &&
+        isLoaded &&
+        bbabamFlowStore.poiData.length > 0
+    ) {
+        return (
+            <PlaceCardContainer ref={containerRef}>
+                <ContentArea>
+                    <TitleContainer>🗺️ PLACE INFORMATIONS</TitleContainer>
+                </ContentArea>
+                <POICardListContainer
+                    leftPadding={Math.max(
+                        ContentAreaPadding,
+                        (width - ContentAreaWidth) / 2 - 30
+                    )}
+                >
+                    {bbabamFlowStore.poiData.map((poi, index) => (
+                        <POICard poiData={poi} index={index} />
+                    ))}
+                </POICardListContainer>
+            </PlaceCardContainer>
+        );
+    }
+    if (!bbabamFlowStore.poiGenerated || !isLoaded) {
+        return (
             <ContentArea>
-                <TitleContainer>🗺️ PLACE INFORMATIONS</TitleContainer>
+                <LoadingPlaceCardContainer>
+                    <Spinner size={18} thickness={3} color="#000080" />
+                    <div>Gernerating PLACE INFORMATIONS</div>
+                </LoadingPlaceCardContainer>
             </ContentArea>
-            <POICardListContainer
-                leftPadding={Math.max(
-                    ContentAreaPadding,
-                    (width - ContentAreaWidth) / 2
-                )}
-            >
-                {bbabamFlowStore.poiData.map((poi, index) => (
-                    <POICard poiData={poi} index={index} />
-                ))}
-            </POICardListContainer>
-        </PlaceCardContainer>
-    ) : (
+        );
+    }
+
+    return (
         <ContentArea>
             <LoadingPlaceCardContainer>
-                <Spinner size={18} thickness={3} color="#000080" />
-                <div>Gernerating PLACE INFORMATIONS</div>
+                <img src={NoResultIcon} alt="no result" />
+                <div>No PLACE INFORMATIONS</div>
             </LoadingPlaceCardContainer>
         </ContentArea>
     );

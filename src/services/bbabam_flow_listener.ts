@@ -16,6 +16,39 @@ export interface AssociatedKeyword {
     queries: string[];
 }
 
+export interface PathTupleValue {
+    text: string;
+    value: number;
+}
+
+export interface PathLocation {
+    lat: number;
+    lon: number;
+}
+
+export enum PathTravelMode {
+    walking,
+    transit,
+}
+
+export interface PathStep {
+    indexFrom: number;
+    indexTo: number;
+    distance: PathTupleValue;
+    duration: PathTupleValue;
+    startLocation: PathLocation;
+    endLocation: PathLocation;
+    instructions: string;
+    travelMode: PathTravelMode;
+}
+export interface PathData {
+    totalDistance: PathTupleValue;
+    totalDuration: PathTupleValue;
+    startLocation: PathLocation;
+    endLocation: PathLocation;
+    steps: PathStep[];
+}
+
 abstract class BBabamFlowServiceListener {
     socket: Socket;
 
@@ -41,7 +74,38 @@ abstract class BBabamFlowServiceListener {
             this.onPoiGeneration(data.place_keywords, data.place_crawled_data);
         });
         this.socket.on('path_generation', (data) => {
-            this.onPathGeneration(data.path_keywords, data.path_crawled_data);
+            const pathData: PathData[] = data.path_crawled_data.map(
+                (path: any) => ({
+                    totalDistance: path['Total distance'],
+                    totalDuration: path['Total duration'],
+                    startLocation: path.Startpoint,
+                    endLocation: path.Endpoint,
+                    steps: path.Steps.map((step: any) => ({
+                        indexFrom: parseInt(
+                            step.index.split('to')[0].trim(),
+                            10
+                        ),
+                        indexTo: parseInt(step.index.split('to')[1].trim(), 10),
+                        distance: step.distance,
+                        duration: step.duration,
+                        startLocation: {
+                            lat: step.start_location.lat,
+                            lon: step.start_location.lng,
+                        },
+                        endLocation: {
+                            lat: step.end_location.lat,
+                            lon: step.end_location.lng,
+                        },
+                        instructions: step.html_instructions,
+                        travelMode:
+                            step.travel_mode === 'WALKING'
+                                ? PathTravelMode.walking
+                                : PathTravelMode.transit,
+                    })),
+                })
+            );
+
+            this.onPathGeneration(data.path_keywords, pathData);
         });
         this.socket.on('associated_ketwords', (data) => {
             // data.associated_keywords is like this:
@@ -108,7 +172,7 @@ abstract class BBabamFlowServiceListener {
     ): void;
     abstract onPathGeneration(
         pathKeywords: string[],
-        pathCrawledData: POIData[]
+        pathCrawledData: PathData[]
     ): void;
     abstract onAssociatedKeywordsGeneration(
         associatedKeywords: AssociatedKeyword[]
