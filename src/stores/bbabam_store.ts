@@ -4,8 +4,7 @@ import BBabamFlowStore from './bbabam_flow_store';
 import BBabamFlowService, {
     FakeBBabamFlowService,
 } from '../services/bbabam_flow_service';
-import {
-    FakeBBabamAssetsService,
+import BBabamAssetsService, {
     PlaceImageCardData,
 } from '../services/bbabam_assets_service';
 
@@ -16,7 +15,7 @@ class BBaBamStore {
 
     placeImageCardData: PlaceImageCardData[] = [];
 
-    bbabamAssetsService = new FakeBBabamAssetsService();
+    bbabamAssetsService = new BBabamAssetsService();
 
     constructor() {
         makeAutoObservable(this, {

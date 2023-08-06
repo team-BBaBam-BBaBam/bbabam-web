@@ -1,5 +1,5 @@
-const ContentAreaWidth = 960;
-const ContentAreaPadding = 20;
+export const ContentAreaWidth = 960;
+export const ContentAreaPadding = 20;
 
 function ContentArea({ children }: { children: React.ReactNode }) {
     return (

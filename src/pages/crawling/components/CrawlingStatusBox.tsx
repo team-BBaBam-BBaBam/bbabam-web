@@ -139,7 +139,7 @@ function CrawlingStatusBox() {
             if (count === bbabamFlowStore.searchKeywords.length) {
                 clearInterval(timer);
             }
-        }, 8000);
+        }, 1500);
 
         return () => clearInterval(timer);
     }, [bbabamFlowStore.searchKeywords, setKeywords]);

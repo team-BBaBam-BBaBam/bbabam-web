@@ -4,6 +4,7 @@
   "homepage": "https://team-bbabam-bbabam.github.io/bbabam-web/",
   "private": true,
   "dependencies": {
+    "@react-google-maps/api": "^2.19.2",
     "@react-spring/web": "^9.7.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -18,6 +19,7 @@
     "mobx-react-lite": "^4.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.7.2",
     "styled-components": "^6.0.6",

@@ -221,7 +221,6 @@ function SearchBar({ resultViewModel }: { resultViewModel: ResultViewModel }) {
                     onKeyDown={(e) => {
                         if (e.key === 'ArrowUp') {
                             e.preventDefault();
-                            console.log(e.key);
                             resultViewModel.selectPrevLongKeyword();
                         } else if (e.key === 'ArrowDown') {
                             e.preventDefault();

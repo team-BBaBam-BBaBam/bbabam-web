@@ -51,8 +51,8 @@ function ImageCardVerticalSlider() {
             const id = counterRef.current + 1;
             counterRef.current += 1;
             return {
-                url: item.galWebImageUrl,
-                text: item.galTitle,
+                url: item.url,
+                text: item.english_title,
                 id,
                 index,
             };
@@ -127,8 +127,8 @@ function ImageCardVerticalSlider() {
             const id = counterRef.current + 1;
             counterRef.current += 1;
             newImageCardDataCopy[randomIndex] = {
-                url: randomImageCardData.galWebImageUrl,
-                text: randomImageCardData.galTitle,
+                url: randomImageCardData.url,
+                text: randomImageCardData.english_title,
                 id,
                 index: randomIndex,
             };

@@ -32,11 +32,11 @@ class BBabamFlowStore {
 
     associatedKeywordsGenerated = false;
 
-    poiData: POIData[] | null = null;
+    poiData: POIData[] = [];
 
     poiKeywords: string[] = [];
 
-    pathData: POIData[] | null = null;
+    pathData: POIData[] = [];
 
     pathKeywords: string[] = [];
 
@@ -62,9 +62,9 @@ class BBabamFlowStore {
         this.poiGenerated = false;
         this.pathGenerated = false;
         this.associatedKeywordsGenerated = false;
-        this.poiData = null;
+        this.poiData = [];
         this.poiKeywords = [];
-        this.pathData = null;
+        this.pathData = [];
         this.pathKeywords = [];
         this.associatedKeywords = [];
 

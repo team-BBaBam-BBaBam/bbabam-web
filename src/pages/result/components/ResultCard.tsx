@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useBBabamFlow } from '../../../hooks/bbabam_flow_provider';
 import ContentArea from '../../../components/ContentArea';
 
@@ -40,7 +41,6 @@ const ResultCardContnet = styled.div`
     letter-spacing: 0.32px;
 
     margin-bottom: 22px;
-    white-space: pre-wrap;
 `;
 
 const ResultCardLinkList = styled.div`
@@ -140,7 +140,11 @@ function ResultCard() {
         <ContentArea>
             <ResultCardContainer>
                 <ResultCardTitle>📚 ANSWER</ResultCardTitle>
-                <ResultCardContnet>{cleanedResult}</ResultCardContnet>
+                <ResultCardContnet>
+                    <ReactMarkdown linkTarget="_blank">
+                        {cleanedResult}
+                    </ReactMarkdown>
+                </ResultCardContnet>
                 <ResultCardLinkList>
                     {urls.map((url) => (
                         <ResultCardLinkPreview>
