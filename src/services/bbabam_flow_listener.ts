@@ -52,6 +52,8 @@ export interface PathData {
 abstract class BBabamFlowServiceListener {
     socket: Socket;
 
+    resultCount = 0;
+
     constructor() {
         this.socket = io('https://bbabam.dshs.site/search', {
             autoConnect: false,
@@ -68,12 +70,24 @@ abstract class BBabamFlowServiceListener {
             this.onFinishCrawling(data.search_keyword);
         });
         this.socket.on('finish_generation', (data) => {
+            this.resultCount += 1;
+            if (this.resultCount === 4) {
+                this.socket.disconnect();
+            }
             this.onFinishGeneration(data.urls, data.result);
         });
         this.socket.on('poi_generation', (data) => {
+            this.resultCount += 1;
+            if (this.resultCount === 4) {
+                this.socket.disconnect();
+            }
             this.onPoiGeneration(data.place_keywords, data.place_crawled_data);
         });
         this.socket.on('path_generation', (data) => {
+            this.resultCount += 1;
+            if (this.resultCount === 4) {
+                this.socket.disconnect();
+            }
             const pathData: PathData[] = data.path_crawled_data.map(
                 (path: any) => ({
                     totalDistance: path['Total distance'],
@@ -114,6 +128,10 @@ abstract class BBabamFlowServiceListener {
             this.onPathGeneration(data.path_keywords, pathData);
         });
         this.socket.on('associated_ketwords', (data) => {
+            this.resultCount += 1;
+            if (this.resultCount === 4) {
+                this.socket.disconnect();
+            }
             // data.associated_keywords is like this:
             /*
             {
@@ -165,6 +183,7 @@ abstract class BBabamFlowServiceListener {
     }
 
     startFlow(message: string) {
+        this.resultCount = 0;
         this.socket.emit('start', { search_text: message });
     }
 

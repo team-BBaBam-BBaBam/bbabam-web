@@ -5,7 +5,7 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { useBBabamFlow } from '../../../hooks/bbabam_flow_provider';
 import ContentArea from '../../../components/ContentArea';
 
-import LogoImage from '../../../assets/img/logo.png';
+import LinkIcon from '../../../assets/svg/link_icon.svg';
 
 const ResultCardContainer = styled.div`
     width: 100%;
@@ -49,12 +49,12 @@ const ResultCardLinkList = styled.div`
     display: flex;
     flex-direction: column;
 
-    gap: 14px;
+    gap: 8px;
 `;
 
-const ResultCardLinkPreview = styled.div`
+const ResultCardLinkPreview = styled.a`
     width: 478px;
-    height: 88.479px;
+    height: 52px;
     flex-shrink: 0;
 
     border-radius: 8px;
@@ -67,13 +67,21 @@ const ResultCardLinkPreview = styled.div`
     align-items: center;
     justify-content: center;
 
+    transition: background 0.2s ease-in-out;
+
+    text-decoration: none;
+
+    &:hover {
+        background: #f2f2f2;
+    }
+
     & > img {
         height: 100%;
-        width: 120px;
+        width: 52px;
         object-fit: contain;
-        padding: 0 25px;
+        padding: 0 18px;
         box-sizing: border-box;
-        background: #fafafa;
+        background: #d2d2d24d;
 
         border-radius: 8px 0 0 8px;
     }
@@ -91,8 +99,8 @@ const ResultCardLinkPreview = styled.div`
         justify-content: start;
         word-break: break-all;
 
-        color: #000;
-        font-family: Pretendard;
+        color: #292929;
+        font-family: Abel;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -147,8 +155,8 @@ function ResultCard() {
                 </ResultCardContnet>
                 <ResultCardLinkList>
                     {urls.map((url) => (
-                        <ResultCardLinkPreview>
-                            <img src={LogoImage} alt="thumbnail" />
+                        <ResultCardLinkPreview href={url} target="_blank">
+                            <img src={LinkIcon} alt="link_icon" />
                             <div>{url}</div>
                         </ResultCardLinkPreview>
                     ))}

@@ -54,6 +54,7 @@ const POICardListContainer = styled.div<{
     align-items: center;
     gap: 36px;
     padding-bottom: 46px;
+    padding-right: 20px;
 
     overflow-x: auto;
     overflow-y: hidden;
