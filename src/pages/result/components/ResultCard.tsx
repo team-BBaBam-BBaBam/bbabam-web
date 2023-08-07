@@ -12,7 +12,7 @@ const ResultCardContainer = styled.div`
     flex-shrink: 0;
     box-sizing: border-box;
 
-    min-height: 454px;
+    min-height: 500px;
 
     border-radius: 8px;
     border: 1px solid #e7e7e7;

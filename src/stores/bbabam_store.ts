@@ -17,12 +17,18 @@ class BBaBamStore {
 
     bbabamAssetsService = new BBabamAssetsService();
 
+    language: 'kr' | 'en' = 'kr';
+
     constructor() {
         makeAutoObservable(this, {
             bbabamAssetsService: false,
         });
 
         this.loadImages();
+    }
+
+    setLanguage(language: 'kr' | 'en') {
+        this.language = language;
     }
 
     async loadImages() {

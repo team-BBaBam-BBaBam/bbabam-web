@@ -9,6 +9,7 @@ import ExplanationCardlist from '../components/ExplanationCardList';
 import WhatIsBBaBamButton from '../components/WhatIsBBaBamButton';
 import HomeViewModel from '../vm/home_view_model';
 import { useBBabam } from '../../../hooks/bbabam_provier';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const HomeContainer = styled.div`
     width: 100vw;
@@ -44,6 +45,7 @@ function HomeView({ homeViewModel }: { homeViewModel: HomeViewModel }) {
     return (
         <HomeContainer>
             <MainBackground />
+            <LanguageSwitcher />
             <ContentArea>
                 <ContentsContainer>
                     <div>

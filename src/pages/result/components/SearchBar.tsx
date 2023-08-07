@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { styled } from 'styled-components';
 
 import { observer } from 'mobx-react-lite';
@@ -40,6 +42,17 @@ const SearchBarInputContainer = styled.div`
         box-sizing: border-box;
         padding: 0 23.5px;
         object-fit: contain;
+        cursor: pointer;
+
+        &:hover {
+            scale: 1.05;
+        }
+
+        &:active {
+            scale: 1.2;
+        }
+
+        transition: scale 0.2s ease-in-out;
     }
 
     & > .divider {
@@ -213,7 +226,14 @@ function SearchBar({ resultViewModel }: { resultViewModel: ResultViewModel }) {
                         ? 'Use ↑/↓ keys'
                         : 'Press Enter ↵'}
                 </GuideText>
-                <img className="logo" src={LogoImage} alt="logo" />
+                <img
+                    className="logo"
+                    src={LogoImage}
+                    alt="logo"
+                    onClick={() => {
+                        resultViewModel.bbabamStore.reset();
+                    }}
+                />
                 <div className="divider" />
                 <SearchBarInput
                     ref={inputRef}
