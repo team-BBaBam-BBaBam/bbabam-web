@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import BBabamFlowStore from '../../../stores/bbabam_flow_store';
 import BBaBamStore from '../../../stores/bbabam_store';
+import { PlaceImageCardData } from '../../../services/bbabam_assets_service';
 
 class ResultViewModel {
     isSearchBarActive = false;
@@ -16,6 +17,8 @@ class ResultViewModel {
     bbabamFlowStore: BBabamFlowStore;
 
     bbabamStore: BBaBamStore;
+
+    selectedGallary: PlaceImageCardData | null = null;
 
     constructor(bbabanFlowStore: BBabamFlowStore, bbabamStore: BBaBamStore) {
         this.bbabamFlowStore = bbabanFlowStore;
@@ -109,6 +112,15 @@ class ResultViewModel {
         // eslint-disable-next-line prefer-destructuring
         this.currentLongKeyword = findedKeyword.queries[0];
         this.searchBarText = this.currentLongKeyword;
+    }
+
+    selectPlaceGallery(place: PlaceImageCardData) {
+        this.selectedGallary = place;
+    }
+
+    consumeSelectedGallery() {
+        this.searchBarText = this.selectedGallary?.english_title || '';
+        this.selectedGallary = null;
     }
 }
 

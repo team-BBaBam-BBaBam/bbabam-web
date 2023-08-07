@@ -12,6 +12,8 @@ const ResultCardContainer = styled.div`
     flex-shrink: 0;
     box-sizing: border-box;
 
+    min-height: 454px;
+
     border-radius: 8px;
     border: 1px solid #e7e7e7;
     background: #fff;
@@ -20,6 +22,7 @@ const ResultCardContainer = styled.div`
     padding: 28px;
 `;
 
+/*
 const ResultCardTitle = styled.div`
     color: #000080;
     font-family: Nunito Sans;
@@ -30,6 +33,7 @@ const ResultCardTitle = styled.div`
 
     margin-bottom: 22px;
 `;
+*/
 
 const ResultCardContnet = styled.div`
     color: #000;
@@ -147,7 +151,6 @@ function ResultCard() {
     return (
         <ContentArea>
             <ResultCardContainer>
-                <ResultCardTitle>📚 ANSWER</ResultCardTitle>
                 <ResultCardContnet>
                     <ReactMarkdown linkTarget="_blank">
                         {cleanedResult}

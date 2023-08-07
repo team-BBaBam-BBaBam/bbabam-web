@@ -1,12 +1,14 @@
 import { styled } from 'styled-components';
 
 import { animated, useSprings } from '@react-spring/web';
+import { useRef } from 'react';
 import ContentArea from '../../../components/ContentArea';
 import SearchBar from '../components/SearchBar';
 import ResultViewModel from '../vm/result_view_model';
 import ResultCard from '../components/ResultCard';
 import PlaceCard from '../components/PlaceCard';
 import PathCard from '../components/PathCard';
+import GallaryCard from '../components/GallaryCard';
 
 const ResultViewContainer = styled.div`
     width: 100vw;
@@ -19,6 +21,7 @@ const ResultViewContainer = styled.div`
     background: #fbfdfe;
 
     overflow-y: auto;
+    overflow-x: hidden;
 `;
 
 const SearchBarContainer = styled.div`
@@ -62,9 +65,11 @@ const SizedBox = styled.div<{
 `;
 
 function ResultView({ resultViewModel }: { resultViewModel: ResultViewModel }) {
+    const resultCardRef = useRef<HTMLDivElement>(null);
+
     const [appearAnimation] = useSprings(
-        3,
-        () => ({
+        4,
+        (index) => ({
             from: {
                 opacity: 0,
                 transform: 'translateY(20px)',
@@ -73,7 +78,7 @@ function ResultView({ resultViewModel }: { resultViewModel: ResultViewModel }) {
                 opacity: 1,
                 transform: 'translateY(0px)',
             },
-            delay: 200,
+            delay: 200 + index * 200,
         }),
         []
     );
@@ -87,9 +92,14 @@ function ResultView({ resultViewModel }: { resultViewModel: ResultViewModel }) {
             </SearchBarContainer>
             <ResultContentContainer>
                 <SizedBox height={16} />
-                <animated.div style={appearAnimation[0]}>
+                <animated.div style={appearAnimation[0]} ref={resultCardRef}>
                     <ResultCard />
                 </animated.div>
+                <GallaryCard
+                    heightParentRef={resultCardRef}
+                    resultViewModel={resultViewModel}
+                    appearAnimation={appearAnimation[3]}
+                />
                 <SizedBox height={57.6} />
                 <animated.div style={appearAnimation[1]}>
                     <PlaceCard />

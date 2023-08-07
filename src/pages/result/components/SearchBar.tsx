@@ -178,6 +178,8 @@ function SearchBar({ resultViewModel }: { resultViewModel: ResultViewModel }) {
     const [isSearchBarActive, setSearchBarActive] = useState(false);
     const [isSearchBarContainerActive, setSearchBarContainerActive] =
         useState(false);
+    const { selectedGallary } = resultViewModel;
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -187,6 +189,13 @@ function SearchBar({ resultViewModel }: { resultViewModel: ResultViewModel }) {
             resultViewModel.setSearchBarActive(false);
         }
     }, [isSearchBarActive, isSearchBarContainerActive, resultViewModel]);
+
+    useEffect(() => {
+        if (selectedGallary) {
+            resultViewModel.consumeSelectedGallery();
+            inputRef.current?.focus();
+        }
+    }, [selectedGallary, resultViewModel]);
 
     return (
         <SearchBarContainer
