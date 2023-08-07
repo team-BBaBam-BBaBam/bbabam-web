@@ -11,7 +11,7 @@ const GallaryCardContainer = styled.div<{
 }>`
     position: absolute;
     right: 0;
-    top: 0;
+    top: 16px;
     width: ${(props) => props.width}px;
     height: ${(props) => props.height}px;
 
