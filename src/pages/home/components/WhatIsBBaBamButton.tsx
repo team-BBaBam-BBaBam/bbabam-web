@@ -26,6 +26,13 @@ const WhatIsBBaBamButtonDiv = styled.div`
     padding: 0 20px;
     align-items: center;
 
+    cursor: pointer;
+    border-radius: 20px;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.6);
+    }
+
     & > img {
         width: 16px;
         height: 16px;
