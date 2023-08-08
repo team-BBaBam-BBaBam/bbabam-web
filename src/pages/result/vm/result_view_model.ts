@@ -18,6 +18,8 @@ class ResultViewModel {
 
     bbabamStore: BBaBamStore;
 
+    feedback_selected: 'none' | 'good' | 'bad' = 'none';
+
     selectedGallary: PlaceImageCardData | null = null;
 
     constructor(bbabanFlowStore: BBabamFlowStore, bbabamStore: BBaBamStore) {
@@ -121,6 +123,10 @@ class ResultViewModel {
     consumeSelectedGallery() {
         this.searchBarText = this.selectedGallary?.english_title || '';
         this.selectedGallary = null;
+    }
+
+    selectFeedback(feedback: 'good' | 'bad') {
+        this.feedback_selected = feedback;
     }
 }
 

@@ -1,9 +1,14 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { styled } from 'styled-components';
 import { animated, useSpring } from '@react-spring/web';
 import { observer } from 'mobx-react-lite';
 import useClientWidthHeight from '../../../hooks/use_client_width_height';
 import { ContentAreaWidth } from '../../../components/ContentArea';
 import ResultViewModel from '../vm/result_view_model';
+
+import GoodIcon from '../../../assets/svg/good_icon.svg';
+import BadIcon from '../../../assets/svg/bad_icon.svg';
 
 const GallaryCardContainer = styled.div<{
     width: number;
@@ -47,6 +52,91 @@ const GallaryListContainer = styled.div`
     align-items: center;
     gap: 22px;
     padding: 22px 0;
+`;
+
+const FeedbackContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+
+    margin-top: 52px;
+
+    & > .title {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        color: #363636;
+        font-family: Nunito Sans;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    & .divider {
+        width: 4px;
+        height: 33px;
+        flex-shrink: 0;
+        border-radius: 2px;
+        background: #d9d9d9;
+        margin-right: 10px;
+    }
+
+    & .feedback {
+        width: 100%;
+        height: 47px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: #f5f5f5;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0px 38px;
+        box-sizing: border-box;
+    }
+
+    & .button {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: #bebebe;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
+
+        transition: background 0.2s ease-in-out;
+
+        &.selected {
+            background: #a3a3a3;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.14);
+        }
+
+        &:hover {
+            background: #d9d9d9;
+        }
+
+        &:active {
+            background: #b0b0b0;
+        }
+
+        & > img {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+
+            object-fit: contain;
+        }
+    }
 `;
 
 const GallaryContainer = styled.div`
@@ -135,6 +225,42 @@ function GallaryCard({
                                     );
                                 })}
                         </GallaryListContainer>
+                        <FeedbackContainer>
+                            <div className="title">
+                                <div className="divider" />
+                                <div>
+                                    Do you
+                                    <br />
+                                    like this result?
+                                </div>
+                            </div>
+                            <div className="feedback">
+                                <div
+                                    className={[
+                                        'button',
+                                        resultViewModel.feedback_selected ===
+                                            'good' && 'selected',
+                                    ].join(' ')}
+                                    onClick={() => {
+                                        resultViewModel.selectFeedback('good');
+                                    }}
+                                >
+                                    <img src={GoodIcon} alt="like" />
+                                </div>
+                                <div
+                                    className={[
+                                        'button',
+                                        resultViewModel.feedback_selected ===
+                                            'bad' && 'selected',
+                                    ].join(' ')}
+                                    onClick={() => {
+                                        resultViewModel.selectFeedback('bad');
+                                    }}
+                                >
+                                    <img src={BadIcon} alt="dislike" />
+                                </div>
+                            </div>
+                        </FeedbackContainer>
                     </animated.div>
                 </animated.div>
             </StickyContainer>
