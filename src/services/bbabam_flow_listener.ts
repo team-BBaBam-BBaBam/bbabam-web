@@ -56,6 +56,7 @@ abstract class BBabamFlowServiceListener {
 
     constructor() {
         this.socket = io('https://bbabam.dshs.site/search', {
+            // this.socket = io('http://localhost:4828/search', {
             autoConnect: false,
         });
         this.socket.connect();
@@ -69,24 +70,35 @@ abstract class BBabamFlowServiceListener {
         this.socket.on('finish_crawling', (data) => {
             this.onFinishCrawling(data.search_keyword);
         });
-        this.socket.on('finish_generation', (data) => {
+        this.socket.on('start_generation', (data) => {
+            this.onUrlGeneration(data.urls);
+        });
+
+        this.socket.on('generation', (data) => {
             this.resultCount += 1;
             if (this.resultCount === 4) {
-                this.socket.disconnect();
+                // stream 방식으로 불러오기때문에 주석처리
+                // this.socket.disconnect();
             }
-            this.onFinishGeneration(data.urls, data.result);
+            const { word } = data;
+            this.onResultGeneration(word);
         });
+
+        this.socket.on('end_generation', (data) => {
+            console.log('done!', data);
+        });
+
         this.socket.on('poi_generation', (data) => {
             this.resultCount += 1;
             if (this.resultCount === 4) {
-                this.socket.disconnect();
+                // this.socket.disconnect();
             }
             this.onPoiGeneration(data.place_keywords, data.place_crawled_data);
         });
         this.socket.on('path_generation', (data) => {
             this.resultCount += 1;
             if (this.resultCount === 4) {
-                this.socket.disconnect();
+                // this.socket.disconnect();
             }
             const pathData: PathData[] = data.path_crawled_data.map(
                 (path: any) => ({
@@ -130,7 +142,7 @@ abstract class BBabamFlowServiceListener {
         this.socket.on('associated_ketwords', (data) => {
             this.resultCount += 1;
             if (this.resultCount === 4) {
-                this.socket.disconnect();
+                // this.socket.disconnect();
             }
             // data.associated_keywords is like this:
             /*
@@ -190,7 +202,8 @@ abstract class BBabamFlowServiceListener {
     abstract onStartCrawling(searchKeywords: string[]): void;
     abstract onError(errorCode: number): void;
     abstract onFinishCrawling(searchKeyword: string): void;
-    abstract onFinishGeneration(urls: string[], result: string): void;
+    abstract onUrlGeneration(urls: string[]): void;
+    abstract onResultGeneration(result: string): void;
     abstract onPoiGeneration(
         placeKeywords: string[],
         placeCrawledData: POIData[]

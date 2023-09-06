@@ -14,8 +14,9 @@ class BBabamFlowService extends BBabamFlowServiceListener {
 
     _onFinishCrawling: ((searchKeyword: string) => void) | null = null;
 
-    _onFinishGeneration: ((urls: string[], result: string) => void) | null =
-        null;
+    _onUrlGeneration: ((urls: string[]) => void) | null = null;
+
+    _onResultGeneration: ((result: string) => void) | null = null;
 
     _onPoiGeneration:
         | ((placeKeywords: string[], placeCrawledData: POIData[]) => void)
@@ -41,10 +42,12 @@ class BBabamFlowService extends BBabamFlowServiceListener {
         this._onFinishCrawling = callback;
     }
 
-    registerOnFinishGeneration(
-        callback: (urls: string[], result: string) => void
-    ) {
-        this._onFinishGeneration = callback;
+    registerOnUrlGeneration(callback: (urls: string[]) => void) {
+        this._onUrlGeneration = callback;
+    }
+
+    registerOnResultGeneration(callback: (result: string) => void) {
+        this._onResultGeneration = callback;
     }
 
     registerOnPoiGeneration(
@@ -88,12 +91,19 @@ class BBabamFlowService extends BBabamFlowServiceListener {
         }
     }
 
-    onFinishGeneration(urls: string[], result: string) {
-        console.log('finish generation');
+    onUrlGeneration(urls: string[]) {
+        console.log('finish url generation');
         console.log(urls);
+        if (this._onUrlGeneration) {
+            this._onUrlGeneration(urls);
+        }
+    }
+
+    onResultGeneration(result: string) {
+        console.log('finish result generation');
         console.log(result);
-        if (this._onFinishGeneration) {
-            this._onFinishGeneration(urls, result);
+        if (this._onResultGeneration) {
+            this._onResultGeneration(result);
         }
     }
 
@@ -135,10 +145,8 @@ class FakeBBabamFlowService extends BBabamFlowService {
             setTimeout(() => {
                 this.onFinishCrawling('유니스트란');
                 setTimeout(() => {
-                    this.onFinishGeneration(
-                        ['https://www.unist.ac.kr/'],
-                        'This is UNIST'
-                    );
+                    this.onUrlGeneration(['https://www.unist.ac.kr/']);
+                    this.onResultGeneration('this is UNIST');
                     setTimeout(() => {
                         this.onAssociatedKeywordsGeneration([
                             {

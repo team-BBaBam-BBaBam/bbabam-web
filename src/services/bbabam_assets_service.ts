@@ -14,6 +14,7 @@ export interface PlaceImageCardData {
 
 class BBabamAssetsService {
     baseUrl = 'https://bbabam.dshs.site';
+    // baseUrl = 'http://localhost:4828';
 
     async loadImages(): Promise<PlaceImageCardData[]> {
         const response = await axios.get<PlaceImageCardData[]>(

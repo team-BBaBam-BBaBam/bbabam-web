@@ -80,8 +80,9 @@ class BBabamFlowStore {
         this.service.registerOnStartCrawling(this.onStartCrawling.bind(this));
         this.service.registerOnError(this.onError.bind(this));
         this.service.registerOnFinishCrawling(this.onFinishCrawling.bind(this));
-        this.service.registerOnFinishGeneration(
-            this.onFinishGeneration.bind(this)
+        this.service.registerOnUrlGeneration(this.onUrlGeneration.bind(this));
+        this.service.registerOnResultGeneration(
+            this.onResultGeneration.bind(this)
         );
         this.service.registerOnPoiGeneration(this.onPoiGeneration.bind(this));
         this.service.registerOnPathGeneration(this.onPathGeneration.bind(this));
@@ -110,10 +111,19 @@ class BBabamFlowStore {
         });
     }
 
-    onFinishGeneration(urls: string[], result: string) {
+    onUrlGeneration(urls: string[]) {
         runInAction(() => {
-            this.result = result;
             this.urls = urls;
+            this.step = BBabamFlowStep.RESULT;
+
+            this.poiGenerated = false;
+            this.pathGenerated = false;
+        });
+    }
+
+    onResultGeneration(result: string) {
+        runInAction(() => {
+            this.result += result;
             this.step = BBabamFlowStep.RESULT;
 
             this.poiGenerated = false;
