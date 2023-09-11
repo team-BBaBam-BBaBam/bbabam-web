@@ -182,6 +182,10 @@ function POICard({ poiData, index }: { poiData: POIData; index: number }) {
     const locX = poiData.loc_X;
     const locY = poiData.loc_Y;
 
+    const handleOpenNewTab = (url: string) => {
+        window.open(url, '_blank', 'noopener, noreferrer');
+    };
+
     return (
         <POICardRankContainer>
             <div>{index + 1}</div>
@@ -200,6 +204,11 @@ function POICard({ poiData, index }: { poiData: POIData; index: number }) {
                     options={{
                         disableDefaultUI: true,
                     }}
+                    onClick={() =>
+                        handleOpenNewTab(
+                            `https://www.google.co.kr/maps/place/${poiData.address}`
+                        )
+                    }
                 >
                     <MarkerF
                         position={{
