@@ -11,7 +11,9 @@ import BBabamAssetsService, {
 class BBaBamStore {
     isInBBaBamFlow = false;
 
-    bbabamFlowStore: BBabamFlowStore | null = null;
+    bbabamFlowStore: BBabamFlowStore = new BBabamFlowStore(
+        new BBabamFlowService()
+    );
 
     placeImageCardData: PlaceImageCardData[] = [];
 
@@ -55,7 +57,7 @@ class BBaBamStore {
 
     reset() {
         this.isInBBaBamFlow = false;
-        this.bbabamFlowStore = null;
+        this.bbabamFlowStore = new BBabamFlowStore(new BBabamFlowService());
     }
 }
 
